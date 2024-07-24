@@ -1,0 +1,165 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Proxy Checker API",
+    "description": "API for checking the status of proxies.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://checker.engagemintcreative.com"
+    }
+  ],
+  "paths": {
+    "/test_proxies": {
+      "post": {
+        "summary": "Check Proxies",
+        "description": "Checks the status of a list of proxies.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "proxies": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ip": {
+                          "type": "string",
+                          "example": "182.131.217.406"
+                        },
+                        "port": {
+                          "type": "string",
+                          "example": "4145"
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "http"
+                        },
+                        "originalFormat": {
+                          "type": "string",
+                          "example": "182.183.217.206:4245"
+                        },
+                        "username": {
+                          "type": "string",
+                          "example": "user"
+                        },
+                        "password": {
+                          "type": "string",
+                          "example": "pass"
+                        }
+                      },
+                      "required": ["ip", "port", "type", "originalFormat"]
+                    }
+                  },
+                  "timeout": {
+                    "type": "integer",
+                    "example": 5
+                  }
+                },
+                "required": ["proxies", "timeout"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "as": {
+                            "type": "string",
+                            "example": "AS7018 AT&T Services, Inc."
+                          },
+                          "city": {
+                            "type": "string",
+                            "example": "Sterling"
+                          },
+                          "country": {
+                            "type": "string",
+                            "example": "United States"
+                          },
+                          "countryCode": {
+                            "type": "string",
+                            "example": "US"
+                          },
+                          "isp": {
+                            "type": "string",
+                            "example": "AT&T Services, Inc."
+                          },
+                          "lat": {
+                            "type": "number",
+                            "format": "float",
+                            "example": 39.0064
+                          },
+                          "lon": {
+                            "type": "number",
+                            "format": "float",
+                            "example": -77.4199
+                          },
+                          "org": {
+                            "type": "string",
+                            "example": "Your Mom LLC"
+                          },
+                          "query": {
+                            "type": "string",
+                            "example": "121.91.240.69"
+                          },
+                          "region": {
+                            "type": "string",
+                            "example": "VA"
+                          },
+                          "regionName": {
+                            "type": "string",
+                            "example": "Virginia"
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "working"
+                          },
+                          "timezone": {
+                            "type": "string",
+                            "example": "America/New_York"
+                          },
+                          "zip": {
+                            "type": "string",
+                            "example": "20163"
+                          }
+                        },
+                        "required": ["status"]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string",
+                            "example": "Failed to connect or invalid response"
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "not working"
+                          }
+                        },
+                        "required": ["error", "status"]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
