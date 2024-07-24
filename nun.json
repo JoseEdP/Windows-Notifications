@@ -15,6 +15,17 @@
       "post": {
         "summary": "Check Proxies",
         "description": "Checks the status of a list of proxies.",
+        "parameters": [
+          {
+            "name": "Referer",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "https://proxiware.com"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
